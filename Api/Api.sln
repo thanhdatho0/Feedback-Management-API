@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api.csproj", "{F809C4C6-7DD4-4117-B8B0-544CFCCD3F7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.EFCore", "..\DataAccess.EFCore\DataAccess.EFCore.csproj", "{B9241E50-B1A3-45DA-AF3C-223099898807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\Domain\Domain.csproj", "{65ECCB62-AB48-4880-83DF-1256693296BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F809C4C6-7DD4-4117-B8B0-544CFCCD3F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F809C4C6-7DD4-4117-B8B0-544CFCCD3F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F809C4C6-7DD4-4117-B8B0-544CFCCD3F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F809C4C6-7DD4-4117-B8B0-544CFCCD3F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9241E50-B1A3-45DA-AF3C-223099898807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9241E50-B1A3-45DA-AF3C-223099898807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9241E50-B1A3-45DA-AF3C-223099898807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9241E50-B1A3-45DA-AF3C-223099898807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65ECCB62-AB48-4880-83DF-1256693296BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65ECCB62-AB48-4880-83DF-1256693296BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65ECCB62-AB48-4880-83DF-1256693296BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65ECCB62-AB48-4880-83DF-1256693296BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2B79731-9E53-40E8-88B2-943C608536A9}
+	EndGlobalSection
+EndGlobal
