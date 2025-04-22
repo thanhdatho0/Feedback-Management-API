@@ -1,5 +1,13 @@
 using DataAccess.EFCore.DBContext;
+using DataAccess.EFCore.Repositories;
+using DataAccess.EFCore.Repositories.EntitiesRepo;
+using Domain.Entities;
+using Domain.Interfaces;
+using Domain.Interfaces.EntitiesIRepo;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +26,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 //Config Swagger Gen Options
+#region Swagger Config
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -45,10 +54,24 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+#endregion
 
-
+//Config Identity
+#region Identity Config
+builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
+{
+    option.Password.RequiredLength = 8;
+    option.Password.RequireNonAlphanumeric = true;
+    option.Password.RequireDigit = true;
+    option.Password.RequireUppercase = true;
+    option.Password.RequireLowercase = true;
+})
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+#endregion
 
 //Config Cors options
+#region Cors Config
 builder.Services.AddCors(option =>
 {
     option.AddPolicy("AllowAll", policy =>
@@ -58,7 +81,50 @@ builder.Services.AddCors(option =>
         .AllowAnyMethod();
     });
 });
+#endregion
 
+//Config Authentication Options
+#region Authentitcation Config
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme =
+    option.DefaultScheme =
+    option.DefaultChallengeScheme =
+    option.DefaultForbidScheme =
+    option.DefaultSignOutScheme =
+    option.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(option =>
+{
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            System.Text.Encoding.UTF8.GetBytes(
+                builder.Configuration["JWT:SigningKey"]!
+            )
+        )
+    };
+});
+#endregion
+
+#region Register Transient Services
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<ICategoryItemRepository, CategoryItemRepository>();
+builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<IRequestTicketRepository, RequestTicketRepository>();
+builder.Services.AddTransient<IResponseTicketRepository, ResponseTicketRepository>();
+builder.Services.AddTransient<ITicketUrgencyRepository, TicketUrgencyRepository>();
+builder.Services.AddTransient<IImageRepository, ImageRepository>();
+#endregion
 
 
 var app = builder.Build();

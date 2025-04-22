@@ -9,3 +9,5 @@ D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\D
 D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Domain\obj\Debug\net9.0\refint\Domain.dll
 D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Domain\obj\Debug\net9.0\Domain.pdb
 D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Domain\obj\Debug\net9.0\ref\Domain.dll
+D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Domain\obj\Debug\net9.0\Domain.sourcelink.json
+D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Domain\obj\Debug\net9.0\Domain.csproj.AssemblyReference.cache

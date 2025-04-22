@@ -1,10 +1,11 @@
 ﻿
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.EFCore.DBContext
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : DbContext(option)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : IdentityDbContext(option)
     {
 
         #region DbSet
