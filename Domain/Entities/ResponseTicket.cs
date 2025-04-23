@@ -3,7 +3,7 @@ namespace Domain.Entities
 {
     public class ResponseTicket : Ticket
     {
-        public Guid EmployeeId { get; set; }
+        public string EmployeeId { get; set; } = string.Empty;
         public virtual Employee? Employee { get; set; }
     }
 }

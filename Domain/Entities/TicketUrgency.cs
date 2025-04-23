@@ -7,6 +7,6 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Urgency { get; set; } = string.Empty;
-        public ICollection<Ticket> Tickets { get; set; } = [];
+        public virtual ICollection<Ticket> Tickets { get; set; } = [];
     }
 }

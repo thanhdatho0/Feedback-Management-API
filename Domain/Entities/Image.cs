@@ -9,7 +9,7 @@ namespace Domain.Entities
     public class Image
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Ult { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
         public string Alt { get; set; } = string.Empty;
         public Guid TicketId { get; set; }
         public virtual RequestTicket? Ticket { get; set; }

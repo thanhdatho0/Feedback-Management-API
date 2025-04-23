@@ -179,3 +179,7 @@ D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\A
 D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
 D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
+D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Castle.Core.dll
+D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\College Project\PTTKOOP\Feedback-Management-Project\Feedback-Management-API\Api\bin\Debug\net9.0\Api.staticwebassets.runtime.json

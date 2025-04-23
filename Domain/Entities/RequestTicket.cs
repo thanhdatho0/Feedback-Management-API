@@ -3,7 +3,7 @@ namespace Domain.Entities
 {
     public class RequestTicket : Ticket
     {
-        public Guid StudentId { get; set; }
+        public string StudentId { get; set; } = string.Empty;
         public virtual Student? Student { get; set; }
     }
 }

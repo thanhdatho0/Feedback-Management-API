@@ -9,6 +9,6 @@ namespace Domain.Entities
         public string Name { get; set; } = string.Empty;
         public Guid CategoryId { get; set; }
         public virtual Category? Category { get; set; }
-        public ICollection<Ticket> Tickets { get; set; } = [];
+        public virtual ICollection<Ticket> Tickets { get; set; } = [];
     }
 }

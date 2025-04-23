@@ -1,9 +1,11 @@
 using DataAccess.EFCore.DBContext;
 using DataAccess.EFCore.Repositories;
 using DataAccess.EFCore.Repositories.EntitiesRepo;
+using DataAccess.EFCore.Services;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.EntitiesIRepo;
+using Domain.Interfaces.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +67,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
     option.Password.RequireDigit = true;
     option.Password.RequireUppercase = true;
     option.Password.RequireLowercase = true;
+    option.SignIn.RequireConfirmedEmail = true;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
@@ -124,6 +127,9 @@ builder.Services.AddTransient<IRequestTicketRepository, RequestTicketRepository>
 builder.Services.AddTransient<IResponseTicketRepository, ResponseTicketRepository>();
 builder.Services.AddTransient<ITicketUrgencyRepository, TicketUrgencyRepository>();
 builder.Services.AddTransient<IImageRepository, ImageRepository>();
+builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IEmailSenderService, EmailSenderService>();
+builder.Services.AddTransient<IImageUploadService, ImageUploadSerivce>();
 #endregion
 
 
@@ -144,5 +150,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles();
 
 app.Run();

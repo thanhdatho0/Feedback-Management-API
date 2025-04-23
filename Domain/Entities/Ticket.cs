@@ -14,6 +14,6 @@ namespace Domain.Entities
         public virtual CategoryItem? CategoryItem { get; set; }
         public Guid TicketUrgencyId { get; set; }
         public virtual TicketUrgency? TicketUrgency { get; set; }
-        public ICollection<Image> Images { get; set; } = [];
+        public virtual ICollection<Image> Images { get; set; } = [];
     }
 }

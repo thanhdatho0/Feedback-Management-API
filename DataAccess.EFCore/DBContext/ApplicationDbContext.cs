@@ -1,11 +1,12 @@
 ﻿
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.EFCore.DBContext
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : IdentityDbContext(option)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : IdentityDbContext<AppUser>(option)
     {
 
         #region DbSet
@@ -19,7 +20,39 @@ namespace DataAccess.EFCore.DBContext
         public DbSet<Employee> Employees { get; set; }
         #endregion
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
+            List<IdentityRole> roles =
+            [
+                new IdentityRole
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "Employee",
+                    NormalizedName = "EMPLOYEE"
+                },
+                new IdentityRole
+                {
+                    Id = "3",
+                    Name = "Student",
+                    NormalizedName = "STUDENT"
+                },
+            ];
+
+            builder.Entity<IdentityRole>().HasData(roles);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
 
     }
 }
