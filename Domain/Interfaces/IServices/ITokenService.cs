@@ -11,8 +11,8 @@ namespace Domain.Interfaces.IServices
 {
     public interface ITokenService
     {
-        TokenDto CreateToken(AppUser user);
-        TokenDto? RefreshToken(AppUser user, string clientRefreshToken);
+        TokenDto CreateToken(AppUser user, IList<string> roles);
+        TokenDto? RefreshToken(AppUser user, string clientRefreshToken, IList<string> roles);
         ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
     }
 }

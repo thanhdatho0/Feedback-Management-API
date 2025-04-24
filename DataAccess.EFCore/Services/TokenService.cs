@@ -25,9 +25,9 @@ namespace DataAccess.EFCore.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]!));
         }
 
-        public TokenDto CreateToken(AppUser user)
+        public TokenDto CreateToken(AppUser user, IList<string> roles)
         {
-            var accessToken = GenerateAccessToken(user);
+            var accessToken = GenerateAccessToken(user, roles);
             var refreshToken = GenerateRefreshToken();
 
             user.RefreshToken = refreshToken;
@@ -67,26 +67,31 @@ namespace DataAccess.EFCore.Services
             }
         }
 
-        public TokenDto? RefreshToken(AppUser user, string clientRefreshToken)
+        public TokenDto? RefreshToken(AppUser user, string clientRefreshToken, IList<string> roles)
         {
             if (user.RefreshToken != clientRefreshToken || user.RefreshTokenExpiryTime < DateTime.UtcNow)
                 return null;
 
-            return CreateToken(user);
+            return CreateToken(user, roles);
         }
 
-        private string GenerateAccessToken(AppUser user)
+        private string GenerateAccessToken(AppUser user, IList<string> roles)
         {
             var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Email, user.Email!)
             };
 
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
             var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = cred,
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"]

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.DTOs.RequestTicketDtos;
+using Domain.DTOs.TicketDtos;
 
 namespace Domain.DTOs.StudentDtos
 {
@@ -14,6 +14,6 @@ namespace Domain.DTOs.StudentDtos
         public string LastName { get; set; } = string.Empty;
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
-        public ICollection<RequestTicketDto> RequestTickets { get; set; } = [];
+        public ICollection<TicketDto> RequestTickets { get; set; } = [];
     }
 }

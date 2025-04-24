@@ -3,50 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.DTOs.RequestTicketDtos;
+using Domain.DTOs.TicketDtos;
 using Domain.DTOs.StudentDtos;
 using Domain.Entities;
+using System.Net.Sockets;
 
 namespace DataAccess.EFCore.Mappers
 {
     public static class RequestTicketMappers
     {
 
-        public static RequestTicketDto ToRequestTicketDto(this RequestTicket requestTicket)
+        public static TicketDto ToRequestTicketDto(this Ticket ticket)
         {
-            return new RequestTicketDto
+            return new TicketDto
             {
-                Id = requestTicket.Id,
-                Title = requestTicket.Title,
-                Body = requestTicket.Body,
-                Status = requestTicket.Status,
-                Category = requestTicket.CategoryItem!.Category!.Name,
-                CategoryItem = requestTicket.CategoryItem!.Name
+                Id = ticket.Id,
+                Title = ticket.Title,
+                Body = ticket.Body,
+                Status = ticket.Status,
+                Category = ticket.CategoryItem!.Category!.Name,
+                CategoryItem = ticket.CategoryItem!.Name
             };
         }
 
-        public static RequestTicketDetailDto ToRequestTicketDetailDto(this RequestTicket requestTicket)
+        public static TicketDetailDto ToRequestTicketDetailDto(this Ticket ticket)
         {
-            return new RequestTicketDetailDto
+            return new TicketDetailDto
             {
-                Id = requestTicket.Id,
-                Title = requestTicket.Title,
-                Body = requestTicket.Body,
-                Status = requestTicket.Status,
-                Category = requestTicket.CategoryItem!.Category!.Name,
-                CategoryItem = requestTicket.CategoryItem!.Name,
+                Id = ticket.Id,
+                Title = ticket.Title,
+                Body = ticket.Body,
+                Status = ticket.Status,
+                Category = ticket.CategoryItem!.Category!.Name,
+                CategoryItem = ticket.CategoryItem!.Name,
                 SenderInfo = new StudentDto
                 {
-                    FirstName = requestTicket.Student!.FirstName,
-                    LastName = requestTicket.Student.LastName,
-                    Email = requestTicket.Student.Email,
+                    FirstName = ticket.Student!.FirstName,
+                    LastName = ticket.Student.LastName,
+                    Email = ticket.Student.Email,
                 }
             };
         }
 
-        public static RequestTicket ToRequestTicketFromCreateDto(this RequestTicketCreateDto requestTicketCreateDto)
+        public static Ticket ToRequestTicketFromCreateDto(this TicketCreateDto requestTicketCreateDto)
         {
-            return new RequestTicket
+            return new Ticket
             {
                 Title = requestTicketCreateDto.Title,
                 Body = requestTicketCreateDto.Body,
@@ -57,14 +58,15 @@ namespace DataAccess.EFCore.Mappers
             };
         }
 
-        public static void UpdateToReceived(this RequestTicket requestTicket)
+        public static void UpdateToReceived(this Ticket ticket, string EmployeeId)
         {
-            requestTicket.Status = "Đã tiếp nhận";
+            ticket.EmployeeId = EmployeeId;
+            ticket.Status = "Đã tiếp nhận";
         }
 
-        public static void UpdateToResolved(this RequestTicket requestTicket)
+        public static void UpdateToResolved(this Ticket ticket)
         {
-            requestTicket.Status = "Đã xử lý";
+            ticket.Status = "Đã xử lý";
         }
     }
 }

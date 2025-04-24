@@ -1,4 +1,5 @@
 ﻿
+using System.Reflection.Emit;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,8 +13,7 @@ namespace DataAccess.EFCore.DBContext
         #region DbSet
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryItem> CategoryItems { get; set; }
-        public DbSet<RequestTicket> RequestTickets { get; set; }
-        public DbSet<ResponseTicket> ResponseTickets { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketUrgency> TicketUrgencies { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Student> Students { get; set; }
@@ -22,7 +22,16 @@ namespace DataAccess.EFCore.DBContext
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
+
+            builder.Entity<Ticket>()
+                .HasOne(t => t.Employee)
+                .WithMany(e => e.Tickets) // hoặc .WithMany(e => e.Tickets) nếu Employee có List<Ticket>
+                .HasForeignKey(t => t.EmployeeId)
+                .IsRequired(false) // ✅ Cho phép null
+                .OnDelete(DeleteBehavior.Cascade); // hoặc .Restrict nếu không muốn xóa cascade
+
 
             List<IdentityRole> roles =
             [

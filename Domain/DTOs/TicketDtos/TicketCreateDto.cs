@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 
-namespace Domain.DTOs.RequestTicketDtos
+namespace Domain.DTOs.TicketDtos
 {
-    public class RequestTicketCreateDto
+    public class TicketCreateDto
     {
         public string Title { get; set; } = string.Empty;
         public string Body { get; set; } = string.Empty;

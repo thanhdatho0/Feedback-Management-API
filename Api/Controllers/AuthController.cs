@@ -4,7 +4,6 @@ using Domain.Interfaces.IServices;
 using Domain.Interfaces;
 using System.Net;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -69,7 +68,8 @@ namespace Api.Controllers
 
                     return Unauthorized("Vui lòng xác nhận email.");
                 }
-                var tokens = _tokenService.CreateToken(user);
+                var roles = await _userManager.GetRolesAsync(user);
+                var tokens = _tokenService.CreateToken(user, roles);
                 if (tokens == null) return StatusCode(400, "Không thể sinh token");
                 await _userManager.UpdateAsync(user);
                 return Ok(new AuthDto
@@ -115,7 +115,7 @@ namespace Api.Controllers
                 {
                     _unitOfWork.Students.Add(student);
                     await _unitOfWork.Complete();
-                }
+                } 
                 catch
                 {
                     return StatusCode(400, "Không thể tạo thông tin sinh viên");
@@ -287,7 +287,8 @@ namespace Api.Controllers
             if (user == null)
                 return Unauthorized("User not found");
 
-            var newTokens = _tokenService.RefreshToken(user, request.RefreshToken);
+            var roles = await _userManager.GetRolesAsync(user);
+            var newTokens = _tokenService.RefreshToken(user, request.RefreshToken, roles);
             if (newTokens == null)
                 return Unauthorized("Invalid refresh token");
 

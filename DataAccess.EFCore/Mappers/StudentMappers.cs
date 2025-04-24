@@ -17,7 +17,7 @@ namespace DataAccess.EFCore.Mappers
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 Email = student.Email,
-                RequestTickets = student.RequestTickets.Select(r => r.ToRequestTicketDto()).ToList(),
+                RequestTickets = student.Tickets.Select(r => r.ToRequestTicketDto()).ToList(),
             };
         }
     }

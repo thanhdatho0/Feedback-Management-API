@@ -13,8 +13,7 @@ namespace Domain.Interfaces
         ICategoryItemRepository CategoryItems { get; }
         IStudentRepository Students { get; }
         IEmployeeRepository Employees { get; }
-        IRequestTicketRepository RequestTickets { get; }
-        IResponseTicketRepository ResponseTickets { get; }
+        ITicketRepository Tickets { get; }
         ITicketUrgencyRepository TicketUrgencies { get; }
         IImageRepository Images { get; }
         Task<int> Complete();

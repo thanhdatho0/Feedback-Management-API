@@ -1,7 +1,8 @@
 ﻿using DataAccess.EFCore.Mappers;
-using Domain.DTOs.RequestTicketDtos;
+using Domain.DTOs.TicketDtos;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RequestTicketController(IUnitOfWork unitOfWork) : ControllerBase
+    public class TicketController(IUnitOfWork unitOfWork) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
@@ -19,7 +20,7 @@ namespace Api.Controllers
             try
             {
                 if(!ModelState.IsValid) return BadRequest(ModelState);
-                var reqTickets = await _unitOfWork.RequestTickets.GetAll();
+                var reqTickets = await _unitOfWork.Tickets.GetAll();
                 return Ok(reqTickets.Select(r => r.ToRequestTicketDto()));
             }
             catch (Exception ex)
@@ -34,7 +35,7 @@ namespace Api.Controllers
             try
             {
                 if (!ModelState.IsValid) return BadRequest(ModelState);
-                var reqTickets = await _unitOfWork.RequestTickets.GetById(id);
+                var reqTickets = await _unitOfWork.Tickets.GetById(id);
                 if (reqTickets == null) return StatusCode(400, "Không tìm thấy ticket");
                 return Ok(reqTickets.ToRequestTicketDetailDto());
             }
@@ -45,22 +46,22 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RequestTicketCreateDto reqTicketCreateDto)
+        public async Task<IActionResult> Create(TicketCreateDto ticketCreateDto)
         {
             try
             {
                 if (!ModelState.IsValid) return BadRequest(ModelState);
-                var reqTicket = reqTicketCreateDto.ToRequestTicketFromCreateDto();
+                var reqTicket = ticketCreateDto.ToRequestTicketFromCreateDto();
                 try
                 {
-                    _unitOfWork.RequestTickets.Add(reqTicket);
+                    _unitOfWork.Tickets.Add(reqTicket);
                 }
                 catch(Exception ex)
                 {
                     return StatusCode(500, ex.Message);
                 }
                 await _unitOfWork.Complete();
-                return Ok(reqTicketCreateDto);
+                return Ok(ticketCreateDto);
             }
             catch (Exception ex)
             {
@@ -68,20 +69,22 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize(Roles = "Employee")]
         [HttpPut("receive-ticket")]
-        public async Task<IActionResult> UpdateToReceived([FromQuery] Guid ticketId)
+        public async Task<IActionResult> UpdateToReceived([FromQuery] Guid ticketId, string EmployeeId)
         {
             try
             {
                 if (!ModelState.IsValid) 
                     return BadRequest(ModelState);
-                var reqTicket = await _unitOfWork.RequestTickets.GetById(ticketId);
-                if (reqTicket == null) 
+                var ticket = await _unitOfWork.Tickets.GetById(ticketId);
+                var employee = await _unitOfWork.Employees.Find(e => e.Id == EmployeeId);
+                if (ticket == null || employee == null) 
                     return StatusCode(400, "Không tìm thấy ticket");
                 else
-                    reqTicket.UpdateToReceived();
+                    ticket.UpdateToReceived(EmployeeId);
                 await _unitOfWork.Complete();
-                return Ok(reqTicket.ToRequestTicketDto());
+                return Ok(ticket.ToRequestTicketDto());
             }
             catch (Exception ex)
             {
@@ -89,6 +92,7 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize(Roles = "Employee")]
         [HttpPut("resolved-ticket")]
         public async Task<IActionResult> UpdateToResolved([FromQuery] Guid ticketId)
         {
@@ -96,7 +100,7 @@ namespace Api.Controllers
             {
                 if (!ModelState.IsValid) 
                     return BadRequest(ModelState);
-                var reqTicket = await _unitOfWork.RequestTickets.GetById(ticketId);
+                var reqTicket = await _unitOfWork.Tickets.GetById(ticketId);
                 if (reqTicket == null) 
                     return StatusCode(400, "Không tìm thấy ticket");
                 else

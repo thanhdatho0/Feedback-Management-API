@@ -18,8 +18,7 @@ namespace DataAccess.EFCore.Repositories
         public ICategoryItemRepository CategoryItems { get; private set; }
         public IEmployeeRepository Employees {  get; private set; }
         public IStudentRepository Students { get; private set; }
-        public IRequestTicketRepository RequestTickets { get; private set; }
-        public IResponseTicketRepository ResponseTickets {  get; private set; }
+        public ITicketRepository Tickets { get; private set; }
         public ITicketUrgencyRepository TicketUrgencies { get; private set; }
         public IImageRepository Images { get; private set; }
 
@@ -30,8 +29,7 @@ namespace DataAccess.EFCore.Repositories
             CategoryItems = new CategoryItemRepository(_context);
             Employees = new EmployeeRepository(_context);
             Students = new StudentRepository(_context);
-            RequestTickets = new RequestTicketRepository(_context);
-            ResponseTickets = new ResponseTicketRepository(_context);
+            Tickets = new TicketRepository(_context);
             TicketUrgencies = new TicketUrgencyRepository(_context);
             Images = new ImageRepository(_context);
         }

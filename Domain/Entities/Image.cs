@@ -12,6 +12,6 @@ namespace Domain.Entities
         public string Url { get; set; } = string.Empty;
         public string Alt { get; set; } = string.Empty;
         public Guid TicketId { get; set; }
-        public virtual RequestTicket? Ticket { get; set; }
+        public virtual Ticket? Ticket { get; set; }
     }
 }

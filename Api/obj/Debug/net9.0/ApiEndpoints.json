@@ -184,9 +184,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.RequestTicketController",
+    "ContainingType": "Api.Controllers.StudentController",
     "Method": "GetAll",
-    "RelativePath": "api/RequestTicket",
+    "RelativePath": "api/Student",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -194,25 +194,35 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.RequestTicketController",
+    "ContainingType": "Api.Controllers.TicketController",
+    "Method": "GetAll",
+    "RelativePath": "api/Ticket",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.TicketController",
     "Method": "Create",
-    "RelativePath": "api/RequestTicket",
+    "RelativePath": "api/Ticket",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "reqTicketCreateDto",
-        "Type": "Domain.DTOs.RequestTicketDtos.RequestTicketCreateDto",
+        "Name": "ticketCreateDto",
+        "Type": "Domain.DTOs.TicketDtos.TicketCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.RequestTicketController",
+    "ContainingType": "Api.Controllers.TicketController",
     "Method": "GetById",
-    "RelativePath": "api/RequestTicket/{id}",
+    "RelativePath": "api/Ticket/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -226,9 +236,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.RequestTicketController",
+    "ContainingType": "Api.Controllers.TicketController",
     "Method": "UpdateToReceived",
-    "RelativePath": "api/RequestTicket/receive-ticket",
+    "RelativePath": "api/Ticket/receive-ticket",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -237,14 +247,19 @@
         "Name": "ticketId",
         "Type": "System.Guid",
         "IsRequired": false
+      },
+      {
+        "Name": "EmployeeId",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.RequestTicketController",
+    "ContainingType": "Api.Controllers.TicketController",
     "Method": "UpdateToResolved",
-    "RelativePath": "api/RequestTicket/resolved-ticket",
+    "RelativePath": "api/Ticket/resolved-ticket",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -255,16 +270,6 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Api.Controllers.StudentController",
-    "Method": "GetAll",
-    "RelativePath": "api/Student",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

@@ -5,9 +5,9 @@ using Domain.Interfaces.EntitiesIRepo;
 
 namespace DataAccess.EFCore.Repositories.EntitiesRepo
 {
-    public class ResponseTicketRepository(ApplicationDbContext context) : 
-        GenericRepository<ResponseTicket>(context), 
-        IResponseTicketRepository
+    public class TicketRepository(ApplicationDbContext context) : 
+        GenericRepository<Ticket>(context), 
+        ITicketRepository
     {
     }
 }
